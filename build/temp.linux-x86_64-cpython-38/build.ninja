@@ -1,0 +1,25 @@
+ninja_required_version = 1.3
+cxx = c++
+
+cflags = -pthread -B /home/ljj/.conda/envs/ugp/compiler_compat -Wl,--sysroot=/ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC -I/home/ljj/.conda/envs/ugp/lib/python3.8/site-packages/torch/include -I/home/ljj/.conda/envs/ugp/lib/python3.8/site-packages/torch/include/torch/csrc/api/include -I/home/ljj/.conda/envs/ugp/lib/python3.8/site-packages/torch/include/TH -I/home/ljj/.conda/envs/ugp/lib/python3.8/site-packages/torch/include/THC -I/usr/local/cuda/include -I/home/ljj/.conda/envs/ugp/include/python3.8 -c
+post_cflags = -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=ext -D_GLIBCXX_USE_CXX11_ABI=0 -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=ext -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++14
+ldflags = 
+
+rule compile
+  command = $cxx -MMD -MF $out.d $cflags -c $in -o $out $post_cflags
+  depfile = $out.d
+  deps = gcc
+
+
+
+build /home/ljj/UGP/build/temp.linux-x86_64-cpython-38/ugp/extensions/cpu/grid_subsampling/grid_subsampling.o: compile /home/ljj/UGP/ugp/extensions/cpu/grid_subsampling/grid_subsampling.cpp
+build /home/ljj/UGP/build/temp.linux-x86_64-cpython-38/ugp/extensions/cpu/grid_subsampling/grid_subsampling_cpu.o: compile /home/ljj/UGP/ugp/extensions/cpu/grid_subsampling/grid_subsampling_cpu.cpp
+build /home/ljj/UGP/build/temp.linux-x86_64-cpython-38/ugp/extensions/cpu/radius_neighbors/radius_neighbors.o: compile /home/ljj/UGP/ugp/extensions/cpu/radius_neighbors/radius_neighbors.cpp
+build /home/ljj/UGP/build/temp.linux-x86_64-cpython-38/ugp/extensions/cpu/radius_neighbors/radius_neighbors_cpu.o: compile /home/ljj/UGP/ugp/extensions/cpu/radius_neighbors/radius_neighbors_cpu.cpp
+build /home/ljj/UGP/build/temp.linux-x86_64-cpython-38/ugp/extensions/extra/cloud/cloud.o: compile /home/ljj/UGP/ugp/extensions/extra/cloud/cloud.cpp
+build /home/ljj/UGP/build/temp.linux-x86_64-cpython-38/ugp/extensions/pybind.o: compile /home/ljj/UGP/ugp/extensions/pybind.cpp
+
+
+
+
+
